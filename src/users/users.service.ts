@@ -8,11 +8,14 @@ import { User } from '@prisma/client';
 export class UsersService {
 	constructor(private readonly prismaService: PrismaService) { }
 
-	async createUser(payload: CreateUserRequestDto): Promise<User> {
-		return await this.prismaService.user.create({
+	async createUser(payload: CreateUserRequestDto): Promise<Omit<User, 'password'>> {
+		return this.prismaService.user.create({
 			data: {
 				...payload,
-				password: await bcrypt.hasch(payload.password, 10)
+				password: await bcrypt.hash(payload.password, 10)
+			},
+			omit: {
+				password: true
 			}
 		})
 	}
