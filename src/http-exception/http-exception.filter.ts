@@ -44,17 +44,17 @@ export class HttpExceptionFilter implements ExceptionFilter {
         if ('message' in exceptionResponse) {
           const messages = exceptionResponse['message'];
 
-          let errors: Record<string, string[]> = {};
+          let errors: Record<string, string> = {};
           if (Array.isArray(messages)) {
             // Mengonversi pesan menjadi key-value
             messages.forEach((msg: string) => {
               const parts = msg.split(' '); // Pisahkan kata-kata pesan
               const field = parts[0].toLowerCase(); // Ambil kata pertama sebagai field (biasanya nama field)
 
-              if (!errors[field]) {
-                errors[field] = [];
-              }
-              errors[field].push(msg); // Tambahkan pesan ke array field terkait
+              // if (!errors[field]) {
+                errors[field] = msg;
+              // }
+              // errors[field].push(msg); // Tambahkan pesan ke array field terkait
             });
           } else if (typeof messages === 'string') {
             errorResponse.message = messages
