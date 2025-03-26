@@ -57,8 +57,8 @@ export class HttpExceptionFilter implements ExceptionFilter {
               errors[field].push(msg); // Tambahkan pesan ke array field terkait
             });
           } else if (typeof messages === 'string') {
-            errors = { general: [messages] };
             errorResponse.message = messages
+            errorResponse.error = messages
           }
           errorResponse.errors = errors
         }
