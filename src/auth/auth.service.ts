@@ -1,7 +1,7 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { User } from '@prisma/client';
-import * as bcrypt from 'bcrypt'
+import bcrypt from 'bcrypt'
 import { Response } from 'express';
 import ms, { StringValue } from 'ms';
 import { UsersService } from 'src/users/users.service';
