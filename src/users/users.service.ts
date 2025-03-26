@@ -20,9 +20,10 @@ export class UsersService {
 		})
 	}
 
-	async getUser(filter: Prisma.UserWhereUniqueInput) {
+	async getUser(filter: Prisma.UserWhereUniqueInput, options?: { select?: Prisma.UserSelect, omit?: Prisma.UserOmit }) {
 		return this.prismaService.user.findUniqueOrThrow({
-			where: filter
+			where: filter,
+			...options || {}
 		})
 	}
 }

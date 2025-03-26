@@ -4,6 +4,7 @@ import { ConfigService } from '@nestjs/config';
 import { Logger } from 'nestjs-pino';
 import { ValidationPipe } from '@nestjs/common';
 import { HttpExceptionFilter } from './http-exception/http-exception.filter';
+import cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -13,6 +14,7 @@ async function bootstrap() {
     whitelist: true, // Strip unknown properties
   }))
   app.useGlobalFilters(new HttpExceptionFilter());
+  app.use(cookieParser())
   await app.listen(app.get(ConfigService).getOrThrow('PORT'));
 }
 bootstrap();
