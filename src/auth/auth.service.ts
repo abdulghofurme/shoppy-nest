@@ -50,4 +50,11 @@ export class AuthService {
 
 		return tokenPayload
 	}
+
+	async logout(response: Response) {
+		return response.clearCookie('Authentication', {
+			secure: true,
+			httpOnly: true
+		})
+	}
 }
