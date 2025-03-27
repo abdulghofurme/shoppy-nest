@@ -17,4 +17,12 @@ export class AuthController {
 	) {
 		return this.authService.login(user, response)
 	}
+
+	@UseGuards(LocalAuthGuard)
+	@Post('logout')
+	logout(
+		@Res({ passthrough: true }) response: Response
+	) {
+		return this.authService.logout(response)
+	}
 }
