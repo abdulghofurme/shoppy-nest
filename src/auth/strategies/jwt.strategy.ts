@@ -5,6 +5,9 @@ import { Request } from "express";
 import { ExtractJwt, Strategy } from "passport-jwt";
 import { TTokenPayload } from "../token-payload";
 import { UsersService } from "src/users/users.service";
+import { User } from "@prisma/client";
+
+export type TJWTUser = Omit<User, 'password'>	 
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -17,7 +20,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 		})
 	}
 
-	async validate(payload: TTokenPayload) {
+	async validate(payload: TTokenPayload) : Promise<TJWTUser> {
 		return this.usersService.getUser({ id: payload.userId }, { omit: { password: true } })
 	}
 }

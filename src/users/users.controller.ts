@@ -4,7 +4,7 @@ import { UsersService } from './users.service';
 import { NoFilesInterceptor } from '@nestjs/platform-express';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { CurrentUser } from 'src/auth/current-user.decorator';
-import { TTokenPayload } from 'src/auth/token-payload';
+import { TJWTUser } from 'src/auth/strategies/jwt.strategy';
 
 @Controller('users')
 export class UsersController {
@@ -19,7 +19,7 @@ export class UsersController {
 	@Get('me')
 	@UseGuards(JwtAuthGuard)
 	getMe(
-		@CurrentUser() user: TTokenPayload
+		@CurrentUser() user: TJWTUser
 	) {
 		return user
 	}
