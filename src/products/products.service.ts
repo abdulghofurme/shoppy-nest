@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateProductRequestDto } from './dto/create-product.request';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class ProductsService {
@@ -13,6 +14,12 @@ export class ProductsService {
 				...payload,
 				userId
 			}
+		})
+	}
+
+	get(where?: Prisma.ProductWhereInput) {
+		return this.prismaService.product.findMany({
+			where
 		})
 	}
 }
