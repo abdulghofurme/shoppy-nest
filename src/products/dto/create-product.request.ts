@@ -13,4 +13,8 @@ export class CreateProductRequestDto {
 	@Type(() => Number)
 	@IsNumber()
 	price: number
+
+	@IsString()
+	@IsNotEmpty()
+	image: string
 }
