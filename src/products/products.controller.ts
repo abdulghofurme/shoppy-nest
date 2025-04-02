@@ -21,31 +21,6 @@ export class ProductsController {
 		return this.productsService.create(payload, user.id);
 	}
 
-	@Post(':productId/image')
-	@UseGuards(JwtAuthGuard)
-	@UseInterceptors(FileInterceptor('image', {
-		storage: multer.diskStorage({
-			destination: 'public/file/products',
-			filename: (req, file, cb) => {
-				console.log(file);
-				console.log(req.params.productId);
-				cb(null, `${req.params.productId}-${Date.now()}${extname(file.originalname)}`);
-			}
-		})
-	}))
-	uploadProductImage(
-		@UploadedFile(
-			new ParseFilePipe({
-				validators: [
-					new MaxFileSizeValidator({ maxSize:  5_000_000 }), // 5MB
-					new FileTypeValidator({ fileType: 'image/*' })
-				]
-			})
-		) _file: Express.Multer.File,
-	) {
-	}
-
-
 	@Get()
 	get() {
 		return this.productsService.get();
