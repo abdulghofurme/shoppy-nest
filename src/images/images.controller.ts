@@ -93,7 +93,7 @@ export class ImagesController {
 			},
 		}),
 	)
-	async uploadProductImage(
+	async uploadImage(
 		@Body() upload: UploadImageRequestDto,
 		@UploadedFile(
 			new ParseFilePipe({
